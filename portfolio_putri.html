@@ -8,9 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
 
-  /* =========================================================
-    TOKEN DASAR
-    ========================================================= */
   :root{
     --bg:#ffe9f5;
     --bg-alt:#ffffeb;
@@ -18,14 +15,11 @@
     --line: #ffe9f5;
     --text:#54372b ;
     --text-dim:#9f6565;
-    --accent:#ff1a6a;   /* warna solder/PCB gold */
-    --accent2:#ff1a6a;  /* warna jalur sirkuit */
+    --accent:#ff1a6a;   
+    --accent2:#ff1a6a;  
     --radius:8px;
   }
 
-  /* -----------------------------------------------------
-    MODUL 3 — Selector HTML (redefinisi tag polos)
-    ----------------------------------------------------- */
   *{ box-sizing:border-box; }
   body{
     margin:0;
@@ -42,9 +36,6 @@
   a{ color:var(--accent2); }
   p{ color:var(--text-dim); margin:0 0 1em 0; }
 
-  /* -----------------------------------------------------
-    MODUL 6 — Navigasi Dropdown (gradient + border-radius)
-    ----------------------------------------------------- */
   #menu{
     list-style:none;
     margin:0; padding:0;
@@ -92,10 +83,6 @@
   }
   #menu ul li a:hover{ background:var(--bg-alt); color:var(--accent2); }
 
-  /* =========================================================
-    HERO — Background image via CSS (Modul 4: background-image,
-    background-position, gradient overlay)
-    ========================================================= */
   .hero{
   padding:50px 8vw 70px;
   background-position:center;
@@ -123,15 +110,13 @@
   border-radius:var(--radius);
   display:block;
 }
-  /* =========================================================
-    MODUL 5 — Layout 2 Kolom (float based)
-    ========================================================= */
+
   #wrapper-about{
     padding:60px 8vw;
     background:var(--bg-alt);
     border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
-    overflow:hidden; /* clearfix untuk float */
+    overflow:hidden; 
   }
   #leftcolumn{
     float:left;
@@ -151,10 +136,6 @@
     margin:4px 8px 4px 0;
   }
 
-  /* -----------------------------------------------------
-    MODUL 3 — Selector Class (.skill-tag dipakai berulang
-    tanpa redefinisi tag)
-    ----------------------------------------------------- */
   .skill-tag{
     font-family:'IBM Plex Mono', monospace;
     font-size:13px;
@@ -167,9 +148,6 @@
     margin:0 8px 8px 0;
   }
 
-  /* =========================================================
-    MODUL 5 — Layout 3 Kolom (float based, untuk section proyek)
-    ========================================================= */
   #projects{ padding:70px 8vw; 
   background:var(--bg-alt); 
   border-bottom:1px solid var(--line);
@@ -193,9 +171,6 @@
     font-size:14px;
   }
 
-  /* =========================================================
-    MODUL 4 — CSS Image (border, width, opacity/hover transparan)
-    ========================================================= */
   .sidebar-kiri img, .sidebar-tengah img, .sidebar-kanan img{
     width:100%;
     display:block;
@@ -206,11 +181,6 @@
   .sidebar-kiri img:hover, .sidebar-tengah img:hover, .sidebar-kanan img:hover{
     opacity:1;
   }
-
-  /* -----------------------------------------------------
-    MODUL 3 — Selector ID (elemen unik: kontak diposisikan
-    khusus, tidak dipakai berulang)
-    ----------------------------------------------------- */
 
 #kontak{
   padding:70px 8vw 90px;
@@ -329,7 +299,6 @@
     font-size: 17px;
     color: var(--text);
 }
-  /* Responsif sederhana */
   @media (max-width:760px){
     #menu{ flex-wrap:wrap; }
     #leftcolumn{ float:none; width:100%; margin-bottom:24px; }
@@ -371,7 +340,7 @@
     <img src="img\1.png" alt="Foto Putri">
   </div>
 </header>
-  <!-- ============ MODUL 5: Layout 2 Kolom ============ -->
+
   <section id="wrapper-about">
     <div id="leftcolumn">
       <h2>About me</h2>
@@ -434,7 +403,6 @@
 
     </div>
 </section>
-  <!-- ============ MODUL 5: Layout 3 Kolom + MODUL 4: CSS Image ============ -->
   <section id="projects">
     <h2>Projects</h2>
     <p>Proyek yang telah saya kembangkan.</p>
@@ -456,8 +424,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ============ MODUL 3: Selector ID (elemen unik) ============ -->
   <section id="kontak">
     <h2>Get in touch</h2>
     <div class="kartu">
