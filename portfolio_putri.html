@@ -1,0 +1,475 @@
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Putri — Teknik Komputer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+
+  /* =========================================================
+    TOKEN DASAR
+    ========================================================= */
+  :root{
+    --bg:#ffe9f5;
+    --bg-alt:#ffffeb;
+    --surface:#54372b;
+    --line: #ffe9f5;
+    --text:#54372b ;
+    --text-dim:#9f6565;
+    --accent:#ff1a6a;   /* warna solder/PCB gold */
+    --accent2:#ff1a6a;  /* warna jalur sirkuit */
+    --radius:8px;
+  }
+
+  /* -----------------------------------------------------
+    MODUL 3 — Selector HTML (redefinisi tag polos)
+    ----------------------------------------------------- */
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0 0 .4em 0;
+    font-weight:600;
+  }
+  a{ color:var(--accent2); }
+  p{ color:var(--text-dim); margin:0 0 1em 0; }
+
+  /* -----------------------------------------------------
+    MODUL 6 — Navigasi Dropdown (gradient + border-radius)
+    ----------------------------------------------------- */
+  #menu{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    background:#ffe9f5;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:50;
+  }
+  #menu li{
+    position:relative;
+  }
+  #menu > li > a{
+    display:block;
+    padding:18px 22px;
+    color:var(--text);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    border-right:1px solid var(--line);
+    transition:color .2s ease, background .2s ease;
+  }
+  #menu > li:first-child a{ font-family:'Space Grotesk'; font-weight:600; color:var(--accent); }
+  #menu > li:hover > a{ background:var(--bg-alt); color:var(--accent); }
+
+  #menu ul{
+    list-style:none;
+    margin:0; padding:6px;
+    position:absolute; left:0; top:100%;
+    min-width:190px;
+    background:var(--bg-alt);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    opacity:0; visibility:hidden;
+    transform:translateY(-6px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s;
+    box-shadow:0 12px 24px rgba(0,0,0,.35);
+  }
+  #menu li:hover > ul{ opacity:1; visibility:visible; transform:translateY(0); }
+  #menu ul li a{
+    display:block;
+    padding:10px 14px;
+    border-radius:6px;
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+  #menu ul li a:hover{ background:var(--bg-alt); color:var(--accent2); }
+
+  /* =========================================================
+    HERO — Background image via CSS (Modul 4: background-image,
+    background-position, gradient overlay)
+    ========================================================= */
+  .hero{
+  padding:50px 8vw 70px;
+  background-position:center;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:40px;
+}
+
+.hero-text{
+  width:100%;
+}
+
+.hero-photo{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.hero-photo img{
+  width:400px;
+  height:460px;
+  object-fit:cover;
+  border-radius:var(--radius);
+  display:block;
+}
+  /* =========================================================
+    MODUL 5 — Layout 2 Kolom (float based)
+    ========================================================= */
+  #wrapper-about{
+    padding:60px 8vw;
+    background:var(--bg-alt);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    overflow:hidden; /* clearfix untuk float */
+  }
+  #leftcolumn{
+    float:left;
+    width:34%;
+  }
+  #rightcolumn{
+    margin-left:38%;
+  }
+  #leftcolumn .tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--accent);
+    border:1px solid var(--accent);
+    border-radius:999px;
+    padding:4px 12px;
+    margin:4px 8px 4px 0;
+  }
+
+  /* -----------------------------------------------------
+    MODUL 3 — Selector Class (.skill-tag dipakai berulang
+    tanpa redefinisi tag)
+    ----------------------------------------------------- */
+  .skill-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--bg-alt);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:8px 12px;
+    display:inline-block;
+    margin:0 8px 8px 0;
+  }
+
+  /* =========================================================
+    MODUL 5 — Layout 3 Kolom (float based, untuk section proyek)
+    ========================================================= */
+  #projects{ padding:70px 8vw; 
+  background:var(--bg-alt); 
+  border-bottom:1px solid var(--line);
+  }
+  #projects .kolom-wrapper{ overflow:hidden; }
+  .sidebar-kiri, .sidebar-tengah, .sidebar-kanan{
+    float:left;
+    width:31.33%;
+    margin:0 1% 20px 1%;
+    background:var(--accent);
+    border:1px solid var(--bg-alt);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .sidebar-kiri h3, .sidebar-tengah h3, .sidebar-kanan h3{
+    padding:16px 16px 4px;
+    font-size:17px;
+  }
+  .sidebar-kiri p, .sidebar-tengah p, .sidebar-kanan p{
+    padding:0 16px 16px;
+    font-size:14px;
+  }
+
+  /* =========================================================
+    MODUL 4 — CSS Image (border, width, opacity/hover transparan)
+    ========================================================= */
+  .sidebar-kiri img, .sidebar-tengah img, .sidebar-kanan img{
+    width:100%;
+    display:block;
+    border-bottom:3px solid var(--bg);
+    opacity:.82;
+    transition:opacity .25s ease;
+  }
+  .sidebar-kiri img:hover, .sidebar-tengah img:hover, .sidebar-kanan img:hover{
+    opacity:1;
+  }
+
+  /* -----------------------------------------------------
+    MODUL 3 — Selector ID (elemen unik: kontak diposisikan
+    khusus, tidak dipakai berulang)
+    ----------------------------------------------------- */
+
+#kontak{
+  padding:70px 8vw 90px;
+  background:var(--bg);
+  border-top:1px solid var(--line);
+}
+
+#kontak h2{
+  margin:0 0 18px 0;
+  font-size:28px;
+  color:var(--text);
+}
+
+#kontak .kartu{
+  background:transparent;
+  border:none;
+  border-radius:0;
+  padding:0;
+  margin:0;
+  max-width:520px;
+}
+
+#kontak .kartu p{
+  margin:0 0 14px 0;
+  font-size:15px;
+}
+
+#kontak .kartu a{
+  display:block;
+  margin-top:6px;
+  font-size:15px;
+  color:var(--accent2);
+  text-decoration:none;
+}
+
+#kontak .kartu a:hover{
+  color:var(--accent);
+  text-decoration:underline;
+}
+
+
+  footer{
+    padding:22px 8vw;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-dim);
+    border-top:1px solid var(--line);
+    background:var(--bg-alt);
+  }
+
+  #skill-section{
+    padding:70px 8vw;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+}
+
+#skill-section h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+#skill-section > p{
+    margin-bottom:25px;
+}
+
+.skill-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.skill-item {
+    width: 150px;
+    text-align: center;
+}
+
+.circle {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    border-radius: 50%;
+
+    background: conic-gradient(
+        var(--accent) var(--percent),
+        var(--bg-alt) 0
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.circle::before {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--bg);
+}
+
+.circle span {
+    position: relative;
+    z-index: 1;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.skill-item h3 {
+    margin-top: 15px;
+    font-size: 17px;
+    color: var(--text);
+}
+  /* Responsif sederhana */
+  @media (max-width:760px){
+    #menu{ flex-wrap:wrap; }
+    #leftcolumn{ float:none; width:100%; margin-bottom:24px; }
+    #rightcolumn{ margin-left:0; }
+    .sidebar-kiri, .sidebar-tengah, .sidebar-kanan{ float:none; width:100%; margin:0 0 20px 0; }
+  }
+  </style>
+  </head>
+  <body>
+
+  <ul id="menu">
+    <li><a href="#beranda">Putri.</a></li>
+    <li><a href="#beranda">Home</a></li>
+    <li><a href="#tentang">About me</a></li>
+    <li><a href="#skill-section">Skill</a>
+      <ul>
+        <li><a href="#">HTML &amp; CSS</a></li>
+        <li><a href="#">JavaScript Dasar</a></li>
+        <li><a href="#">Python</a></li>
+        <li><a href="#">Jaringan Komputer</a></li>
+      </ul>
+    </li>
+    <li><a href="#projects">Project</a></li>
+    <li><a href="#kontak">Contact</a></li>
+  </ul>
+
+  <header class="hero" id="beranda">
+  <div class="hero-text">
+    <span class="eyebrow" style="color: #ff1a6a;">Mahasiswa Teknik Komputer · Semester 3</span>
+    <h1>Halo, saya Putri.</h1>
+    <p class="lead">
+      Sedang belajar merancang sistem — dari jalur logika di baris kode
+      sampai jalur tembaga di papan sirkuit. Halaman ini dibangun sambil
+      mempraktikkan navigasi, layout, dan styling gambar dengan CSS murni.
+    </p>
+  </div>
+
+  <div class="hero-photo">
+    <img src="img\1.png" alt="Foto Putri">
+  </div>
+</header>
+  <!-- ============ MODUL 5: Layout 2 Kolom ============ -->
+  <section id="wrapper-about">
+    <div id="leftcolumn">
+      <h2>About me</h2>
+      <span class="tag">Teknik Komputer</span>
+      <span class="tag">Semester 3</span>
+      <span class="tag">Sedang belajar CSS</span>
+    </div>
+    <div id="rightcolumn">
+      <p id="tentang">Saya mahasiswa Teknik Komputer semester 3 yang tertarik pada pengembangan web dan sistem digital. Semester ini saya sedang memperdalam HTML, CSS, dasar JavaScript, serta pengantar jaringan komputer dan sistem digital. Portofolio ini adalah tempat saya mendokumentasikan latihan dan proyek kecil selama belajar.</p>
+    </div>
+  </section>
+
+ <section id="skill-section">
+    <h2>Skill</h2>
+    <p>Beberapa kemampuan yang sedang saya pelajari dan kembangkan.</p>
+
+    <div class="skill-container">
+
+        <div class="skill-item">
+            <div class="circle" style="--percent: 90%;">
+                <span>90%</span>
+            </div>
+            <h3>HTML5</h3>
+        </div>
+
+        <div class="skill-item">
+            <div class="circle" style="--percent: 85%;">
+                <span>85%</span>
+            </div>
+            <h3>CSS3</h3>
+        </div>
+
+        <div class="skill-item">
+            <div class="circle" style="--percent: 70%;">
+                <span>70%</span>
+            </div>
+            <h3>JavaScript</h3>
+        </div>
+
+        <div class="skill-item">
+            <div class="circle" style="--percent: 75%;">
+                <span>75%</span>
+            </div>
+            <h3>Python</h3>
+        </div>
+
+        <div class="skill-item">
+            <div class="circle" style="--percent: 80%;">
+                <span>80%</span>
+            </div>
+            <h3>Git &amp; GitHub</h3>
+        </div>
+
+        <div class="skill-item">
+            <div class="circle" style="--percent: 75%;">
+                <span>75%</span>
+            </div>
+            <h3>UI/UX</h3>
+        </div>
+
+    </div>
+</section>
+  <!-- ============ MODUL 5: Layout 3 Kolom + MODUL 4: CSS Image ============ -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <p>Proyek yang telah saya kembangkan.</p>
+    <div class="kolom-wrapper">
+      <div class="sidebar-kiri">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect width='400' height='240' fill='%23182635'/%3E%3Cg stroke='%235fd1c7' stroke-width='2' opacity='0.6'%3E%3Cline x1='40' y1='60' x2='360' y2='60'/%3E%3Cline x1='40' y1='110' x2='260' y2='110'/%3E%3Cline x1='40' y1='160' x2='320' y2='160'/%3E%3C/g%3E%3Ccircle cx='40' cy='60' r='6' fill='%23ffb454'/%3E%3Ccircle cx='40' cy='110' r='6' fill='%23ffb454'/%3E%3Ccircle cx='40' cy='160' r='6' fill='%23ffb454'/%3E%3C/svg%3E" alt="Navigasi dropdown">
+        <h3 style="color: #ffffeb;">Navbar Dropdown</h3>
+        <p style="color: #cbcbbc;">Menu navigasi bertingkat dengan efek gradient dan sudut membulat, mengikuti struktur Modul 6.</p>
+      </div>
+      <div class="sidebar-tengah">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect width='400' height='240' fill='%231c2530'/%3E%3Crect x='40' y='40' width='140' height='160' fill='%23223449'/%3E%3Crect x='200' y='40' width='160' height='70' fill='%23ffb454' opacity='0.7'/%3E%3Crect x='200' y='130' width='160' height='70' fill='%235fd1c7' opacity='0.5'/%3E%3C/svg%3E" alt="Layout kolom">
+        <h3 style="color: #ffffeb;">Layout Multi-Kolom</h3>
+        <p style="color: #cbcbbc;">Susunan dua dan tiga kolom memakai <em>float</em>, seperti pada praktik Modul 5.</p>
+      </div>
+      <div class="sidebar-kanan">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240'%3E%3Crect width='400' height='240' fill='%23161d26'/%3E%3Ctext x='40' y='90' font-family='monospace' font-size='22' fill='%23ffb454'%3E%23id %7B..%7D%3C/text%3E%3Ctext x='40' y='130' font-family='monospace' font-size='22' fill='%235fd1c7'%3E.class %7B..%7D%3C/text%3E%3Ctext x='40' y='170' font-family='monospace' font-size='22' fill='%23eef1f5'%3Etag %7B..%7D%3C/text%3E%3C/svg%3E" alt="CSS selector">
+        <h3 style="color: #ffffeb;">Latihan Selector CSS</h3>
+        <p style="color: #cbcbbc;">Kombinasi selector tag, class, dan ID untuk mengatur gaya secara bertingkat, dari Modul 3.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODUL 3: Selector ID (elemen unik) ============ -->
+  <section id="kontak">
+    <h2>Get in touch</h2>
+    <div class="kartu">
+      <p>Terbuka untuk diskusi seputar tugas kuliah, proyek kecil, atau sekadar bertukar catatan belajar.</p>
+      <a href="mailto:putriaazkiy@gmail.com">putriaazkiy@gmail.com</a>
+      <a href="https://github.com/putriaazkiy">github.com/putriaazkiy</a>
+    </div>
+  </section>
+
+  <footer>
+    © Putri
+  </footer>
+
+  </body>
+  </html>
