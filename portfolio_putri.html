@@ -328,7 +328,7 @@
   <header class="hero" id="beranda">
   <div class="hero-text">
     <span class="eyebrow" style="color: #ff1a6a;">Mahasiswa Teknik Komputer · Semester 3</span>
-    <h1>Halo, saya Putri.</h1>
+    <h1>Hi, dear!</h1>
     <p class="lead">
       Sedang belajar merancang sistem — dari jalur logika di baris kode
       sampai jalur tembaga di papan sirkuit. Halaman ini dibangun sambil
@@ -436,6 +436,118 @@
   <footer>
     © Putri
   </footer>
+
+  <script>
+    (function(){
+  
+      /* 1. Tahun otomatis di footer */
+      var footerEl = document.querySelector('footer');
+      if (footerEl) {
+        footerEl.textContent = '© Putri ' + new Date().getFullYear();
+      }
+  
+      /* 2. Smooth scroll untuk semua link menu yang menuju anchor (#...) */
+      document.querySelectorAll('#menu a[href^="#"]').forEach(function(link){
+        link.addEventListener('click', function(e){
+          var targetId = this.getAttribute('href');
+          if (targetId.length > 1) {
+            var target = document.querySelector(targetId);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+  
+      /* 3. Highlight menu aktif sesuai posisi scroll */
+      var navLinks = Array.from(document.querySelectorAll('#menu > li > a[href^="#"]'));
+      var sections = navLinks
+        .map(function(link){ return document.getElementById(link.getAttribute('href').slice(1)); })
+        .filter(Boolean);
+  
+      function setActiveLink(){
+        var scrollPos = window.scrollY + 120;
+        var currentEl = sections[0];
+        sections.forEach(function(sec){
+          if (sec.offsetTop <= scrollPos) currentEl = sec;
+        });
+        navLinks.forEach(function(link){
+          var isActive = currentEl && link.getAttribute('href') === '#' + currentEl.id;
+          link.classList.toggle('active', !!isActive);
+        });
+      }
+      window.addEventListener('scroll', setActiveLink);
+      setActiveLink();
+  
+      /* 4. Animasi progress circle skill (dari 0% naik ke nilai aslinya) */
+      var circles = document.querySelectorAll('.circle');
+      var animatedCircles = new WeakSet();
+  
+      function animateCircle(circle){
+        var target = parseInt(circle.style.getPropertyValue('--percent')) || 0;
+        var span = circle.querySelector('span');
+        var duration = 1200;
+        var startTime = null;
+  
+        function step(timestamp){
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / duration, 1);
+          var current = Math.floor(progress * target);
+          circle.style.setProperty('--percent', current + '%');
+          if (span) span.textContent = current + '%';
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            circle.style.setProperty('--percent', target + '%');
+            if (span) span.textContent = target + '%';
+          }
+        }
+        requestAnimationFrame(step);
+      }
+  
+      if ('IntersectionObserver' in window) {
+        var circleObserver = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if (entry.isIntersecting && !animatedCircles.has(entry.target)) {
+              animatedCircles.add(entry.target);
+              animateCircle(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        circles.forEach(function(circle){ circleObserver.observe(circle); });
+      } else {
+        circles.forEach(animateCircle);
+      }
+  
+      /* 5. Fade-in untuk kartu project saat mulai terlihat */
+      var revealTargets = document.querySelectorAll('.sidebar-kiri, .sidebar-tengah, .sidebar-kanan');
+      revealTargets.forEach(function(el){
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity .6s ease, transform .6s ease';
+      });
+  
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        revealTargets.forEach(function(el){ revealObserver.observe(el); });
+      } else {
+        revealTargets.forEach(function(el){
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        });
+      }
+  
+    })();
+  </script> 
 
   </body>
   </html>
